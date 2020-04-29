@@ -1,0 +1,15 @@
+lib
+es
+node_modules
+notes
+scripts
+package-lock.json
+build.bat
+
+# IDE - VSCode
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
