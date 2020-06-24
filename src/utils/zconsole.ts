@@ -1,7 +1,7 @@
 import { ZTime } from './ztime';
 
 export const logt = (...args) => {
-  args.unshift(ZTime.localCurrUniDateTime({ isMs: true }) + ' ==>');
+  args.unshift(ZTime.localUniDateTimeMs() + ' ==>');
   // @ts-ignore
   console.log.apply(this, args);
 };

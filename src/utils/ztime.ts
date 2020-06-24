@@ -1,4 +1,4 @@
-import { ZString } from './zstring';
+import { ZtimeOpts } from '../models/ztime-opts.model';
 
 export class ZTime {
 	static ONE_MINUTE_IN_MS = 60000;
@@ -16,7 +16,6 @@ export class ZTime {
 		});
 	}
 
-
 	/***************************/
 	/*   UTC time functions    */
 	/***************************/
@@ -26,24 +25,18 @@ export class ZTime {
 	}
 
 	// opts: isUndashed (boolean) - to replace dashes with spaces, default false
-	static utcUniDate(d: Date = new Date(), opts: any = {}): string {
+	static utcUniDate(d: Date = new Date(), opts: ZtimeOpts = {}): string {
 		let uniDate = d.toISOString().substr(0, 10);
 		if (opts.isUndashed) uniDate = uniDate.replace(/-/g, ' ');
 		return uniDate;
 	}
 
-	// opts: isMs (boolean) - include milliseconds, default false
-	static utcUniDateTime(d: Date = new Date(), opts: any = {}): string {
-		const len = opts.isMs ? 23 : 19;
-		return d.toISOString().substr(0, len).replace('T', ' ');
+	static utcUniDateTime(d: Date = new Date(), opts: ZtimeOpts = {}): string {
+		return d.toISOString().substr(0, 19).replace('T', ' ');
 	}
 
-	static utcCurrUniDate(opts: any = {}): string {
-		return ZTime.utcUniDate(new Date(), opts);
-	}
-
-	static utcCurrUniDateTime(opts: any = {}): string {
-		return ZTime.utcUniDateTime(new Date(), opts);
+	static utcUniDateTimeMs(d: Date = new Date(), opts: ZtimeOpts = {}): string {
+		return d.toISOString().substr(0, 23).replace('T', ' ');
 	}
 
 
@@ -59,20 +52,16 @@ export class ZTime {
 		return new Date(ZTime.localEpoch(d));
 	}
 
-	static localUniDate(d: Date = new Date(), opts: any = {}): string {
+	static localUniDate(d: Date = new Date(), opts: ZtimeOpts = {}): string {
 		return ZTime.utcUniDate(ZTime.localDate(d), opts);
 	}
 
-	static localUniDateTime(d: Date = new Date(), opts: any = {}): string {
+	static localUniDateTime(d: Date = new Date(), opts: ZtimeOpts = {}): string {
 		return ZTime.utcUniDateTime(ZTime.localDate(d), opts);
 	}
 
-	static localCurrUniDate(opts: any = {}): string {
-		return ZTime.utcUniDate(ZTime.localDate(), opts);
-	}
-
-	static localCurrUniDateTime(opts: any = {}): string {
-		return ZTime.utcUniDateTime(ZTime.localDate(), opts);
+	static localUniDateTimeMs(d: Date = new Date(), opts: ZtimeOpts = {}): string {
+		return ZTime.utcUniDateTimeMs(ZTime.localDate(d), opts);
 	}
 
 	
@@ -92,14 +81,14 @@ export class ZTime {
 		return isoString.substr(0, 23).replace('T', ' ');
 	}
   
-	static gregDate2Date(greg) {
+	static gregDate2Date(gregDate: string) {
 		const months = {
 			Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06',
 			Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12'
 		};
-		const year = greg.substr(8, 4);
-		const month = months[greg.substr(0, 3)];
-		const day = greg.substr(4, 2);
+		const year = gregDate.substr(8, 4);
+		const month = months[gregDate.substr(0, 3)];
+		const day = gregDate.substr(4, 2);
 		const uniDate = `${year}-${month}-${day}`;
 		let utcEpoch = (new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), 0, 0, 0))).valueOf();
 		if (utcEpoch < 0) utcEpoch = 0;

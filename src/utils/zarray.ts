@@ -1,9 +1,18 @@
 export class ZArray {
-  static toObj(items, fValue, fKey?)  {
+  static toObj(items, fValue?, fKey?)  {
+    if (!items && items.length === 0) return {};
     const obj = {};
-    for (let i = 0, len = items.length; i < len; i++) {
-      const item = items[i];
-      obj[fKey ? fKey(item, items) : item] = fValue(item, items);
+    if (typeof(items[0]) === 'object') {
+      const entries = items.map(item => Object.entries(item)[0]);
+      for (let i = 0, len = items.length; i < len; i++) {
+        const entry = entries[i];
+        obj[fKey ? fKey(entry[0], entry[1], items) : entry[0]] = fValue ? fValue(entry[0], entry[1], items) : entry[1];
+      }
+    } else {
+      for (let i = 0, len = items.length; i < len; i++) {
+        const item = items[i];
+        obj[item] = fValue ? fValue(item, items) : item;
+      }
     }
     return obj;
   }

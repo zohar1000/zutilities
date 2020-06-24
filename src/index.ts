@@ -6,6 +6,7 @@ export { ZNumber } from './utils/znumber';
 export { ZObj } from './utils/zobj';
 export { ZSortedArray } from './utils/zsorted-array';
 export { ZSanitation } from './utils/zsanitation';
+export { ZString } from './utils/zstring';
 export { ZTime } from './utils/ztime';
 export { ZEnv } from './enums/zenv.enums';
 export { ZLogSeverity } from './enums/zlog-severity.enums';

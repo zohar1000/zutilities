@@ -1,5 +1,5 @@
 import { ZPrimitiveType } from '../models/zprimitive-type.model';
-import { ZArrayInsertOpts } from '../models/ZArrayInsertOpts.model';
+import { ZArrayInsertOpts } from '../models/zArrayInsertOpts.model';
 
 export class ZSortedArray {
 

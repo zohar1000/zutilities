@@ -36,7 +36,7 @@ export class ZObj {
 		let result = toObj || {} as any;
 		if (!keys) {
 			Object.assign(result, obj);
-			return;
+			return result;
 		}
 
 		const setValue = (newKey, oldKey, defaultValue) => {
